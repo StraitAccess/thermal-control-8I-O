@@ -56,7 +56,7 @@ volatile int rotaryCount = 0;
 volatile boolean enc2_flag = false;
 volatile boolean enc3_flag = false;
 
-//PID therm1_PID(input, output(0-255), target temp, therm_p[0], therm_i[0], therm_d[0], DIRECT)
+//PID therm1_PID(input, output(0-255), target temp, therm_p[0], therm_i[0], therm_d[0], DIRECT) - example
 PID therm1_PID(&therm_act[0], &therm_pwm[0], &therm_set[0], therm_p[0], therm_i[0], therm_d[0], DIRECT);//Heaters 1,4 are acting on the same thermistor (therm 0) in one half of the mould
 PID therm2_PID(&therm_act[0], &therm_pwm[1], &therm_set[0], therm_p[1], therm_i[1], therm_d[1], DIRECT);//Heaters 1,2 are acting on the same thermistor (therm 0) in one half of the mould
 PID therm3_PID(&therm_act[6], &therm_pwm[2], &therm_set[0], therm_p[2], therm_i[2], therm_d[2], DIRECT);//Heaters  is the inner mandrel of the hot block connected to T7 
