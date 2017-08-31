@@ -58,11 +58,11 @@ volatile boolean enc3_flag = false;
 
 //PID therm1_PID(input, output(0-255), target temp, therm_p[0], therm_i[0], therm_d[0], DIRECT) - example
 PID therm1_PID(&therm_act[0], &therm_pwm[0], &therm_set[0], therm_p[0], therm_i[0], therm_d[0], DIRECT);//Heaters 1,4 are acting on the same thermistor (therm 0) in one half of the mould
-PID therm2_PID(&therm_act[0], &therm_pwm[1], &therm_set[0], therm_p[1], therm_i[1], therm_d[1], DIRECT);//Heaters 1,2 are acting on the same thermistor (therm 0) in one half of the mould
-PID therm3_PID(&therm_act[6], &therm_pwm[2], &therm_set[0], therm_p[2], therm_i[2], therm_d[2], DIRECT);//Heaters  is the inner mandrel of the hot block connected to T7 
-PID therm4_PID(&therm_act[1], &therm_pwm[3], &therm_set[0], therm_p[3], therm_i[3], therm_d[3], DIRECT);//Heater  are acting on the same thermistor (therm 1) AND the same heater output in the second half of the mould
-PID therm5_PID(&therm_act[5], &therm_pwm[4], &therm_set[1], therm_p[4], therm_i[4], therm_d[4], REVERSE);
-PID therm6_PID(&therm_act[3], &therm_pwm[5], &therm_set[1], therm_p[5], therm_i[5], therm_d[5], REVERSE);
+PID therm2_PID(&therm_act[1], &therm_pwm[1], &therm_set[0], therm_p[1], therm_i[1], therm_d[1], DIRECT);//Heaters 1,2 are acting on the same thermistor (therm 0) in one half of the mould
+PID therm3_PID(&therm_act[2], &therm_pwm[2], &therm_set[0], therm_p[2], therm_i[2], therm_d[2], DIRECT);//Heaters  is the inner mandrel of the hot block connected to T7 
+PID therm4_PID(&therm_act[3], &therm_pwm[3], &therm_set[0], therm_p[3], therm_i[3], therm_d[3], DIRECT);//Heater  are acting on the same thermistor (therm 1) AND the same heater output in the second half of the mould
+PID therm5_PID(&therm_act[4], &therm_pwm[4], &therm_set[0], therm_p[4], therm_i[4], therm_d[4], DIRECT);
+PID therm6_PID(&therm_act[5], &therm_pwm[5], &therm_set[0], therm_p[5], therm_i[5], therm_d[5], DIRECT);
 //PID therm7_PID(&therm_act[6], &therm_pwm[6], &therm_set[6], therm_p[6], therm_i[6], therm_d[6], DIRECT);
 //PID therm8_PID(&therm_act[7], &therm_pwm[7], &therm_set[7], therm_p[7], therm_i[7], therm_d[7], DIRECT);
 
@@ -93,8 +93,8 @@ void setup() {
   pinMode(enc2, INPUT_PULLUP);
   pinMode(enc3, INPUT_PULLUP);
 
-  digitalWrite(8, HIGH);//switch fans on
-  digitalWrite(9, HIGH); //switch fans on
+  //digitalWrite(8, HIGH);//switch fans on
+  //digitalWrite(9, HIGH); //switch fans on
 
 
   therm1_PID.SetOutputLimits(0, 255); // set to 100 for testing
@@ -124,7 +124,7 @@ void setup() {
   therm6_PID.SetTunings(120.0, 1.0, 1.0);
 
   
-  therm_set[0]=20.0;
+  therm_set[0]=120.0;
   therm_set[1]=5.0;
 
   attachInterrupt(digitalPinToInterrupt(enc_button), encoder_button, RISING);
@@ -144,7 +144,7 @@ void loop() {
     therm3_PID.Compute();
     therm4_PID.Compute();
     therm5_PID.Compute();
-    //therm6_PID.Compute();
+    therm6_PID.Compute();
     update_outputs();
     display_temp();
   }
