@@ -124,7 +124,7 @@ void setup() {
   therm6_PID.SetTunings(120.0, 1.0, 1.0);
 
   
-  therm_set[0]=120.0;
+  therm_set[0]=160.0;
   therm_set[1]=5.0;
 
   attachInterrupt(digitalPinToInterrupt(enc_button), encoder_button, RISING);
